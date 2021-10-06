@@ -5,3 +5,7 @@ body {
 .car {
   width: 20%;
 }
+
+img {
+  transform: rotate(0);
+}
