@@ -1,15 +1,24 @@
 var $img = document.querySelector('img');
 var intervalID;
 
-function startCar() {
-  var movedPixel = 7;
+function stopCounting(interval) {
+  clearInterval(interval);
+  intervalID = null;
+}
+
+function startCar(locationX) {
+  var movedPixel = locationX;
 
   if (!intervalID) {
     intervalID = setInterval(function () {
+      if (movedPixel > 1300) {
+        movedPixel = 0;
+      }
       movedPixel = movedPixel + 7;
       $img.style.transform = 'translateX(' + movedPixel + 'px)';
     }, 16);
-
+  } else {
+    stopCounting(intervalID);
   }
 
 }
@@ -17,6 +26,7 @@ function startCar() {
 function keyhandler(event) {
 
   var keyCode = event.code;
+
   if (keyCode === 'ArrowUp') {
     $img.style.transform = 'rotate(-90deg)';
   } else if (keyCode === 'ArrowDown') {
@@ -26,7 +36,8 @@ function keyhandler(event) {
   } else if (keyCode === 'ArrowLeft') {
     $img.style.transform = 'rotate(180deg)';
   } else if (keyCode === 'Space') {
-    startCar();
+    var locationX = window.scrollX + $img.getBoundingClientRect().left;
+    startCar(locationX);
   }
 
 }
