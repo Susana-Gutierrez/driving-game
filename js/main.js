@@ -3,7 +3,7 @@
 
 var $img = document.querySelector('img');
 var intervalID;
-var direction = 'rotate(0)';
+var direction;
 var valueX;
 var valueY;
 
@@ -60,6 +60,12 @@ function keyhandler(event) {
 
   valueX = $img.computedStyleMap().get('transform')[0].x.value;
   valueY = $img.computedStyleMap().get('transform')[1].y.value;
+
+  if ($img.computedStyleMap().get('transform')[2].angle.value === 0) {
+    direction = 'rotate(' + $img.computedStyleMap().get('transform')[2].angle.value + ')';
+  } else {
+    direction = 'rotate(' + $img.computedStyleMap().get('transform')[2].angle.value + 'deg)';
+  }
 
   var keyCode = event.code;
 
